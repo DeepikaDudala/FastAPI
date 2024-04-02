@@ -1,4 +1,4 @@
-import re
+from typing import List
 from fastapi import APIRouter,status,Depends
 from sqlalchemy.orm import Session
 from .. import schemas
@@ -10,15 +10,15 @@ router = APIRouter(prefix='/blog',tags=['blogs'])
 
 
 
-@router.post('/blog',status_code = status.HTTP_201_CREATED)
+@router.post('/blog',status_code = status.HTTP_201_CREATED,response_model=schemas.Blog)
 def create_blog(request:schemas.Blog,db:Session = Depends(get_db)):
     return blog.create(request,db)
 
-@router.get('')
+@router.get('',response_model=List[schemas.Blog])
 def get_all_blogs(db:Session = Depends(get_db)):
     return blog.get_all(db)
 
-@router.get('/{id}')
+@router.get('/{id}',response_model=schemas.Blog)
 def get_blog(id:int,db:Session = Depends(get_db)):
     return blog.get(id,db)
 
