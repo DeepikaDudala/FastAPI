@@ -14,11 +14,11 @@ router = APIRouter(prefix='/blog',tags=['blogs'])
 def create_blog(request:schemas.Blog,db:Session = Depends(get_db)):
     return blog.create(request,db)
 
-@router.get('',response_model=List[schemas.Blog])
+@router.get('',response_model=List[schemas.ShowBlog])
 def get_all_blogs(db:Session = Depends(get_db)):
     return blog.get_all(db)
 
-@router.get('/{id}',response_model=schemas.Blog)
+@router.get('/{id}',response_model=schemas.ShowBlog)
 def get_blog(id:int,db:Session = Depends(get_db)):
     return blog.get(id,db)
 

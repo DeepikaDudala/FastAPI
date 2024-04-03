@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from .. import models,schemas
 
 def create(request:schemas.Blog,db:Session):
-    new_blog  =models.Blog(title = request.title, body = request.body, published = request.published)
+    new_blog  =models.Blog(title = request.title, body = request.body, published = request.published,user_id = 1)
     db.add(new_blog)
     db.commit()
     db.refresh(new_blog)
@@ -24,7 +24,7 @@ def update(id:int,request:schemas.Blog,db:Session):
     if not blog.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"blog with id {id} not found")
     blog.update(request.dict()) # type: ignore
-    db.commit()
+    db.commit() 
     return "updated"
 
 def delete(id:int,db:Session):
