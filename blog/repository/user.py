@@ -1,9 +1,11 @@
 from fastapi import HTTPException,status
 from sqlalchemy.orm import Session
-from .. import models,schemas
+from ..database import models
+from ..utils import schemas
+from ..utils.hashig import Hash
 
 def create(request:schemas.User,db:Session):
-    hashedPassword = request.password
+    hashedPassword = Hash.hash(request.password)
     new_user = models.User(name = request.name , email = request.email, password = hashedPassword)
     db.add(new_user)
     db.commit()

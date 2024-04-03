@@ -12,6 +12,8 @@ class User(BaseModel):
     name:str
     email:str
     password:str
+    class Config():
+        orm_mode:True
 
 class ShowUser(BaseModel):
     name:str
@@ -22,7 +24,7 @@ class ShowUser(BaseModel):
 
 class ShowBlog(BaseModel):
     title:str
-    email:str
+    body:str
     creator:ShowUser
     class Config():
         orm_mode =True

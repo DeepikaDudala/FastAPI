@@ -1,6 +1,7 @@
 from fastapi import Depends, HTTPException,status
 from sqlalchemy.orm import Session
-from .. import models,schemas
+from ..database import models
+from ..utils import schemas
 
 def create(request:schemas.Blog,db:Session):
     new_blog  =models.Blog(title = request.title, body = request.body, published = request.published,user_id = 1)

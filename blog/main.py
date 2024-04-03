@@ -1,6 +1,6 @@
 from fastapi import Depends, FastAPI
-from . import models,routers
-from .database import engine
+from .database import models
+from .database.database import engine
 from .routers import blog,user
 
 
